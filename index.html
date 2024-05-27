@@ -8,8 +8,8 @@
     </head>
 
     <body>
-        <header>
-            <ul>
+        <header id="header-info">
+            <ul id="header-list">
                 <li>Level 2 Capstone</li>
                 <li>Axios ToDo List</li>
                 <li>Zachary Baca</li>
@@ -21,7 +21,19 @@
         </div>
 
         <div id="form">
-            <h1>Placeholder For Form</h1>
+            <h1>Add ToDo Form</h1>
+            <hr />
+            <form id="todo-form" name="todo-form">
+                <input type="text" name="title" placeholder="title" />
+                <select name="price" id="price" placeholder="price">
+                    <option value="none">Price</option>
+                    <option value="five">5</option>
+                    <option value="ten">10</option>
+                    <option value="fifteen">15</option>
+                    <option value="twenty">20</option>
+                    <option value="other">Other</option>
+                </select>
+            </form>
         </div>
 
         <div id="instructions">
