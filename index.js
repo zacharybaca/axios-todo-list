@@ -1,11 +1,24 @@
 
+
+// Grab UL From Document
+let todoList = document.getElementById('todo-list');
+
+// Grab Input Title from Form
+let enteredTitle = document.todoForm.title.value;
+
+// Grab Price from Number Input
+let priceEntered = document.todoForm.price.value;
+
+// Grab Description from Input
+let descriptionEntered = document.todoForm.description.value;
+
+// Grab URL for Image
+let urlEntered = document.todoForm.imgUrl.value;
+
 // GET Endpoint to Display All Todos
 axios.get("https://api.vschool.io/zacharybaca/todo")
     .then(response => {
         let data = response.data;
-
-        // Grab UL From Document
-        let todoList = document.getElementById('todo-list');
 
         for (let i = 0; i < data.length; i++) {
             // Create H1 for Title
