@@ -144,13 +144,54 @@ ul {
 #todos {
     display: flex;
     justify-content: center;
-    border: 2px solid black;
+    margin-top: 4%;
+    margin-left: 35%;
+    margin-right: 35%;
+    border-radius: 12px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: linear-gradient(rgb(41, 128, 185), rgb(135, 189, 216));
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc #f0f0f0;
+    height: 45vh;
+    border: 8px solid orange;
 }
 
 #todo-list {
     display: flex;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0);
-    width: 50%;
-    border: 3px solid blue;
+    width: 70%;
+    border: 8px solid blue;
+}
+
+.todo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border: 8px solid yellow;
+    background-color: white;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 5%;
+    gap: 10px;
+}
+
+.button-container button {
+    font-size: 18px;
+}
+
+h1.item-title, p.item-detail, p.item-price, img.item-image {
+    padding: 3%;
+}
+
+img.item-image {
+    min-width: 120px;
+    min-height: 120px;
+    max-width: 150px;
+    max-height: 150px;
 }
