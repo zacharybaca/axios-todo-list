@@ -23,13 +23,13 @@
 
         <div id="form">
             
-            <form id="todo-form" name="todo-form">
+            <form id="todo-form" name="todoForm">
                 <h1>Add ToDo Form</h1>
                 <hr />
                 <input type="text" name="title" placeholder="Enter a Title for Your Todo" />
                 <input type="number" name="price" placeholder="Enter a Price for Your Todo" />
                 <input type="text" name="description" placeholder="Enter a Description for Your Todo" />
-                <input type="url" name="image-url" placeholder="Enter a URL Address to Display an Image for Your Todo" />
+                <input type="url" name="imageUrl" placeholder="Enter a URL Address to Display an Image for Your Todo" />
                 <button type="submit">Submit</button>
             </form>
         </div>
@@ -42,6 +42,18 @@
 
         <div id="todos">
             <ul id="todo-list">
+                <li class="todo">
+                    <h1 class="item-title">Title</h1>
+                    <p class="item-detail">Item Detail</p>
+                    <p class="item-price">Item Price</p>
+                    <img src="#" class="item-image" />
+                    <div class="button-container">
+                        <button class="item-delete-button">Delete</button>
+                        <button class="item-edit-button">Edit</button>
+                    </div>
+                    <label for="completed-checkbox">Completed</label>
+                    <input type="checkbox" class="completed-checkbox" name="completed-checkbox" />
+                </li>
                 <li class="todo">
                     <h1 class="item-title">Title</h1>
                     <p class="item-detail">Item Detail</p>

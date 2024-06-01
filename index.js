@@ -13,7 +13,7 @@ let priceEntered = document.todoForm.price.value;
 let descriptionEntered = document.todoForm.description.value;
 
 // Grab URL for Image
-let urlEntered = document.todoForm.imgUrl.value;
+let urlEntered = document.todoForm.imageUrl.value;
 
 // GET Endpoint to Display All Todos
 axios.get("https://api.vschool.io/zacharybaca/todo")
