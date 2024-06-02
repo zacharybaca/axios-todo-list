@@ -149,7 +149,7 @@ body {
         margin-left: 35%;
         margin-right: 35%;
         margin-bottom: 2%;
-        height: 65vh;
+        height: 80vh;
         border-radius: 12px;
         background-color: rgba(0, 0, 0, 0);
         background-image: linear-gradient(rgb(41, 128, 185), rgb(135, 189, 216));
@@ -158,25 +158,18 @@ body {
         scrollbar-color: #ccc #f0f0f0;
     }
     
-    #todo-list {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 70%;
-        height: 90vh;
-        gap: 15px;
-    }
-    
     .todo {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        border-radius: 5px;
-        background-color: whitesmoke;
-        border: 3px solid red;
-    }
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center; 
+         padding: 10%;
+         width: 100%;
+         margin-bottom: 7%;
+         margin-top: 7%;
+         border-radius: 5px;
+         background-color: whitesmoke;
+     } 
     
     .button-container {
         display: flex;
@@ -372,21 +365,15 @@ body {
         scrollbar-color: #ccc #f0f0f0;
     }
     
-    #todo-list {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 70%;
-        height: 70vh;
-        gap: 15px;
-    }
-    
     .todo {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 10%;
         width: 100%;
+        margin-bottom: 7%;
+        margin-top: 7%;
         border-radius: 5px;
         background-color: whitesmoke;
     }
