@@ -3,18 +3,6 @@
 // Grab UL From Document
 let todoList = document.getElementById('todo-list');
 
-// Grab Input Title from Form
-let enteredTitle = document.todoForm.title.value;
-
-// Grab Price from Number Input
-let priceEntered = document.todoForm.price.value;
-
-// Grab Description from Input
-let descriptionEntered = document.todoForm.description.value;
-
-// Grab URL for Image
-let urlEntered = document.todoForm.imageUrl.value;
-
 // AddToDo Function to Add Tasks to DOM
 function addToDo(todo) {
     // Create List Item Element
@@ -43,6 +31,7 @@ function addToDo(todo) {
 
      // If Description Exists, Create Element
      if (todo.description) {
+      
         // Create p Element for Item Detail
         let itemDetail = document.createElement('p');
 
@@ -62,7 +51,7 @@ function addToDo(todo) {
         let itemPrice = document.createElement('p');
 
         // Set itemPrice to Price of Todo
-        itemPrice.innerText = todo.price;
+        itemPrice.innerText = `$${todo.price}.00`
 
         // Add Class to p Element
         itemPrice.classList.add('item-price');
@@ -77,7 +66,7 @@ function addToDo(todo) {
         let itemImage = document.createElement('img');
 
         // Set itemImage Src to Todo URL
-        itemImage.src = todo.imgURL;
+        itemImage.src = todo.imgUrl;
 
         // Add Class to img Element
         itemImage.classList.add('item-image');
@@ -86,7 +75,6 @@ function addToDo(todo) {
         listItem.appendChild(itemImage);
      }
      
-
      // Create DIV Element for Button Container
      let buttonContainer = document.createElement('div');
 
@@ -100,7 +88,7 @@ function addToDo(todo) {
      deleteButton.classList.add('item-delete-button');
 
      // Add Text to Delete Button
-     deleteButton.innerText = 'Delete';
+     deleteButton.innerText = 'Delete Task';
 
      // Append deleteButton to buttonContainer
      buttonContainer.appendChild(deleteButton);
@@ -112,7 +100,7 @@ function addToDo(todo) {
      editButton.classList.add('item-edit-button');
 
      // Add Text to Edit Button
-     editButton.innerText = 'Edit';
+     editButton.innerText = 'Edit Task';
 
      // Append editButton to buttonContainer
      buttonContainer.appendChild(editButton);
@@ -146,13 +134,53 @@ function addToDo(todo) {
      todoList.appendChild(listItem);
 }
 
-
 // GET Endpoint to Display All Todos
 axios.get("https://api.vschool.io/zacharybaca/todo")
     .then(response => {
         let data = response.data;
+        let checkBoxes = document.getElementsByClassName('completed-checkbox');
 
         for (let i = 0; i < data.length; i++) {
-           addToDo(data[i]);
+            // addToDo Function Displays Saved Todos to DOM
+            addToDo(data[i]);
         }
+
+        for (let i = 0; i < checkBoxes.length; i++) {
+            // Change Event Applies line-through Style When Box is Checked
+            checkBoxes[i].addEventListener('change', (e) => {
+               console.log('Target: ', e.target.parentElement.children)
+               if (e.target.checked) {
+                  let itemTitle = e.target.parentElement.children[0]
+
+                  let itemDetail = e.target.parentElement.children[2]
+
+                  let itemPrice = e.target.parentElement.children[3]
+
+                  itemTitle.style.textDecoration = 'line-through';
+
+                  itemDetail.style.textDecoration = 'line-through';
+
+                  itemPrice.style.textDecoration = 'line-through';
+               }
+            })
+        }
+            
     })
+
+// Add Event Listener on Form to Post ToDo
+document.todoForm.addEventListener("submit", (e) => {
+   e.preventDefault();
+
+   const todo = {
+      title: document.todoForm.title.value,
+      price: document.todoForm.price.value,
+      description: document.todoForm.description.value,
+      imgUrl: document.todoForm.imageUrl.value,
+      completed: document.todoForm.completedCheckbox.checked
+   }
+
+   // POST Endpoint to Add Todo
+   axios.post("https://api.vschool.io/zacharybaca/todo", todo)
+      .then(response => console.log(response.data))
+      .catch(error => console.log(error))
+})
