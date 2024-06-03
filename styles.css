@@ -145,6 +145,7 @@ body {
     #todos {
         display: flex;
         justify-content: center;
+        align-content: center;
         margin-top: 4%;
         margin-left: 35%;
         margin-right: 35%;
@@ -163,7 +164,7 @@ body {
          flex-direction: column;
          justify-content: center;
          align-items: center; 
-         padding: 10%;
+         padding: 40%;
          width: 100%;
          margin-bottom: 7%;
          margin-top: 7%;
@@ -176,6 +177,7 @@ body {
         justify-content: space-between;
         padding: 5%;
         gap: 10px;
+        font-size: 18px;
     }
     
     .button-container button {
