@@ -1,5 +1,4 @@
 
-
 // Grab UL From Document
 let todoList = document.getElementById('todo-list');
 
@@ -139,7 +138,7 @@ axios.get("https://api.vschool.io/zacharybaca/todo")
     .then(response => {
         let data = response.data;
         let checkBoxes = document.getElementsByClassName('completed-checkbox');
-
+         
         for (let i = 0; i < data.length; i++) {
             // addToDo Function Displays Saved Todos to DOM
             addToDo(data[i]);
@@ -176,11 +175,29 @@ document.todoForm.addEventListener("submit", (e) => {
       price: document.todoForm.price.value,
       description: document.todoForm.description.value,
       imgUrl: document.todoForm.imageUrl.value,
-      completed: document.todoForm.completedCheckbox.checked
+      completed: document.todoForm.completed
    }
 
    // POST Endpoint to Add Todo
    axios.post("https://api.vschool.io/zacharybaca/todo", todo)
       .then(response => console.log(response.data))
       .catch(error => console.log(error))
-})
+
+      // Clear Form Data After Submission
+      document.todoForm.title.value = '';
+      document.todoForm.price.value = '';
+      document.todoForm.description.value = '';
+      document.todoForm.imageUrl.value = '';
+
+      // // Delete and Re-Add the Todo Elements for Updated List
+      //    // Loop Through todoList
+      //    // Delete Each Element Inside List
+      //    let child = todoList.lastElementChild;
+
+      //    while (child) {
+      //       todoList.removeChild(child);
+      //       child = todoList.lastElementChild;
+      //    }
+   })
+
+   // PUT Endpoint to Update Completed Task in Database
