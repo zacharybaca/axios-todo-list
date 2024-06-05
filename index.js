@@ -158,24 +158,21 @@ axios.get("https://api.vschool.io/zacharybaca/todo")
                // PUT Endpoint to Update Todo in Database
                let todo = data[i]._id;
                console.log('Target: ', e.target.parentElement.children)
-               console.log('Target: ', e.target.parentElement.children[0].className)
+               console.log('Target-Class: ', e.target.parentElement.children[0].className)
                if (e.target.checked) {
                   let itemTitle, itemDetail, itemPrice
                   if (e.target.parentElement.children[0].className === 'item-title') {
                      itemTitle = e.target.parentElement.children[0];
-
                      itemTitle.style.textDecoration = 'line-through';
                   }
 
                   if (e.target.parentElement.children[2].className === 'item-detail') {
                      itemDetail = e.target.parentElement.children[2];
-
                      itemDetail.style.textDecoration = 'line-through';
                   }
                   
                   if (e.target.parentElement.children[3].className === 'item-price') {
                      itemPrice = e.target.parentElement.children[3];
-
                      itemPrice.style.textDecoration = 'line-through';
                   }
                   
@@ -193,6 +190,8 @@ axios.get("https://api.vschool.io/zacharybaca/todo")
             
     })
     
+    // PUT Endpoint to Update Todo in Database, and Apply Styling to Todo on UI
+
     // Global Function That Will Get Todos From API
     async function getTodos() {
       let response = await axios.get("https://api.vschool.io/zacharybaca/todo");
