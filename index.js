@@ -137,6 +137,7 @@ function addToDo(todo) {
 axios.get("https://api.vschool.io/zacharybaca/todo")
     .then(response => {
         let data = response.data;
+        console.log('DATA: ', data[0]._id);
         let checkBoxes = document.getElementsByClassName('completed-checkbox');
          
         for (let i = 0; i < data.length; i++) {
@@ -144,11 +145,14 @@ axios.get("https://api.vschool.io/zacharybaca/todo")
             addToDo(data[i]);
         }
 
+        // Try to move checkBoxes Event Listener Code Inside For Loop Where it is Calling addToDo
         for (let i = 0; i < checkBoxes.length; i++) {
             // Change Event Applies line-through Style When Box is Checked
             checkBoxes[i].addEventListener('change', (e) => {
-               console.log('Target: ', e.target.parentElement.children)
-               if (e.target.checked) {
+               // PUT Endpoint to Update Todo in Database
+               let todo = data[i]._id;
+               console.log('Target: ', e.target.parentElement.children[7].checked)
+               if (data[i].completed) {
                   let itemTitle = e.target.parentElement.children[0]
 
                   let itemDetail = e.target.parentElement.children[2]
@@ -160,7 +164,17 @@ axios.get("https://api.vschool.io/zacharybaca/todo")
                   itemDetail.style.textDecoration = 'line-through';
 
                   itemPrice.style.textDecoration = 'line-through';
-               }
+
+                  
+                  // Updated Object Passed into PUT request
+                  let updatedTodo = {
+                     completed: true
+                  }
+
+                  console.log('TODO: ', todo);
+                  axios.put(`https://api.vschool.io/zacharybaca/todo/${todo}`, updatedTodo).then(response => console.log(response.data)).catch(error => console.log(error))
+
+               } 
             })
         }
             
@@ -199,5 +213,3 @@ document.todoForm.addEventListener("submit", (e) => {
       //       child = todoList.lastElementChild;
       //    }
    })
-
-   // PUT Endpoint to Update Completed Task in Database
