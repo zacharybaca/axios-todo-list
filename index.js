@@ -2,6 +2,12 @@
 // Grab UL From Document
 let todoList = document.getElementById('todo-list');
 
+// Grab Checkbox Inputs From Document
+let checkBoxes = document.getElementsByClassName('completed-checkbox');
+
+// Global Variable to Access Data From Todo API
+let todos;
+
 // AddToDo Function to Add Tasks to DOM
 function addToDo(todo) {
     // Create List Item Element
@@ -137,7 +143,7 @@ function addToDo(todo) {
 axios.get("https://api.vschool.io/zacharybaca/todo")
     .then(response => {
         let data = response.data;
-        console.log('DATA: ', data[0]._id);
+        
         let checkBoxes = document.getElementsByClassName('completed-checkbox');
          
         for (let i = 0; i < data.length; i++) {
@@ -186,7 +192,27 @@ axios.get("https://api.vschool.io/zacharybaca/todo")
         }
             
     })
-
+    
+    // Global Function That Will Get Todos From API
+    async function getTodos() {
+      let response = await axios.get("https://api.vschool.io/zacharybaca/todo");
+      console.log(response.data);
+      return response.data;
+    }
+    
+    // Function That Will Give an ID of a Todo
+    async function getTodoId(todo) {
+      let todos = await getTodos();
+      
+      for (let i = 0; i < todos.length; i++) {
+         if (String(todo._id) === todos[i]._id) {
+            console.log(todos[i]._id)
+            return todos[i]._id;
+         }
+         
+      }
+    }
+    
 // Add Event Listener on Form to Post ToDo
 document.todoForm.addEventListener("submit", (e) => {
    e.preventDefault();
