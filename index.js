@@ -1,4 +1,5 @@
 
+
 // Grab UL From Document
 let todoList = document.getElementById('todo-list');
 
@@ -46,6 +47,14 @@ function addToDo(todo) {
         // Add Class to p Element
         itemDetail.classList.add('item-detail');
 
+        // Check If Todo is Completed
+        if (todo.completed) {
+         itemDetail.style.textDecoration = 'line-through';
+        }
+        else {
+         itemDetail.style.textDecoration = 'none';
+        }
+
         // Append Description to listItem
         listItem.appendChild(itemDetail);
      }
@@ -63,6 +72,14 @@ function addToDo(todo) {
 
         // Append Price to listItem
         listItem.appendChild(itemPrice);
+
+        // Check If Todo is Completed
+        if (todo.completed) {
+         itemPrice.style.textDecoration = 'line-through';
+        }
+        else {
+         itemPrice.style.textDecoration = 'none';
+        }
      }
     
      // If Image Exists, Create Element
@@ -135,6 +152,16 @@ function addToDo(todo) {
      // Append completedTodo to listItem
      listItem.appendChild(completedTodo);
 
+     // Check If Task is Completed
+     if (todo.completed && todo.title) {
+      title.style.textDecoration = 'line-through';
+      completedTodo.checked = true;
+     }
+     else {
+      title.style.textDecoration = 'none';
+      completedTodo.checked = false;
+     }
+
      // Append List Item to TodoList
      todoList.appendChild(listItem);
 }
@@ -191,6 +218,13 @@ axios.get("https://api.vschool.io/zacharybaca/todo")
     })
     
     // PUT Endpoint to Update Todo in Database, and Apply Styling to Todo on UI
+    const updateTodo = (todo) => {
+      todo = {
+         completed: true
+      }
+
+      axios.put(`https://api.vschool.io/zacharybaca/todo/${todo._id}`, todo)
+    }
 
     // Global Function That Will Get Todos From API
     async function getTodos() {
