@@ -1,5 +1,6 @@
 
 
+
 // Grab UL From Document
 let todoList = document.getElementById('todo-list');
 
@@ -198,27 +199,25 @@ axios.get("https://api.vschool.io/zacharybaca/todo")
                axios.put(`https://api.vschool.io/zacharybaca/todo/${data[i]._id}`, updatedTodo).then(response => console.log(response.data)).catch(error => console.log(error))
 
             })
-         }}) 
-
-    // Global Function That Will Get Todos From API
-    async function getTodos() {
-      let response = await axios.get("https://api.vschool.io/zacharybaca/todo");
-      console.log(response.data);
-      return response.data;
-    }
-    
-    // Function That Will Give an ID of a Todo
-    async function getTodoId(todo) {
-      let todos = await getTodos();
-      
-      for (let i = 0; i < todos.length; i++) {
-         if (String(todo._id) === todos[i]._id) {
-            console.log(todos[i]._id)
-            return todos[i]._id;
          }
-         
+
+         // DELETE Endpoint to Delete a Todo
+         // Grab All the Delete Buttons
+         let deleteButtons = document.getElementsByClassName('item-delete-button');
+
+         // Loop Over Delete Buttons
+         for (let i = 0; i < deleteButtons.length; i++) {
+            // Add Event Listener on Each Delete Button
+            deleteButtons[i].addEventListener('click', (e) => {
+               console.log('Delete Button Clicked: ', e.target.parentElement.parentElement)
+               // Delete Todo With Associated Delete Button
+               axios.delete(`https://api.vschool.io/zacharybaca/todo/${data[i]._id}`).then(response => console.log(response.data)).catch(error => console.log(error));
+            })
+         }
       }
-    }
+   ) 
+    
+    
     
 // Add Event Listener on Form to Post ToDo
 document.todoForm.addEventListener("submit", (e) => {
