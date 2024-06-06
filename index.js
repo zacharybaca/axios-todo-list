@@ -180,51 +180,25 @@ axios.get("https://api.vschool.io/zacharybaca/todo")
 
         // Try to move checkBoxes Event Listener Code Inside For Loop Where it is Calling addToDo
         for (let i = 0; i < checkBoxes.length; i++) {
+
+            // Updated Object Passed into PUT request
+            let updatedTodo = {
+               completed: false
+            }
+
             // Change Event Applies line-through Style When Box is Checked
             checkBoxes[i].addEventListener('change', (e) => {
-               // PUT Endpoint to Update Todo in Database
-               let todo = data[i]._id;
-               console.log('Target: ', e.target.parentElement.children)
-               console.log('Target-Class: ', e.target.parentElement.children[0].className)
                if (e.target.checked) {
-                  let itemTitle, itemDetail, itemPrice
-                  if (e.target.parentElement.children[0].className === 'item-title') {
-                     itemTitle = e.target.parentElement.children[0];
-                     itemTitle.style.textDecoration = 'line-through';
-                  }
-
-                  if (e.target.parentElement.children[2].className === 'item-detail') {
-                     itemDetail = e.target.parentElement.children[2];
-                     itemDetail.style.textDecoration = 'line-through';
-                  }
+                  updatedTodo.completed = true;
+               }
+               else {
+                  updatedTodo.completed = false;
+               }
                   
-                  if (e.target.parentElement.children[3].className === 'item-price') {
-                     itemPrice = e.target.parentElement.children[3];
-                     itemPrice.style.textDecoration = 'line-through';
-                  }
-                  
-                  // Updated Object Passed into PUT request
-                  let updatedTodo = {
-                     completed: true
-                  }
+               axios.put(`https://api.vschool.io/zacharybaca/todo/${data[i]._id}`, updatedTodo).then(response => console.log(response.data)).catch(error => console.log(error))
 
-                  console.log('TODO: ', todo);
-                  axios.put(`https://api.vschool.io/zacharybaca/todo/${todo}`, updatedTodo).then(response => console.log(response.data)).catch(error => console.log(error))
-
-               } 
             })
-        }
-            
-    })
-    
-    // PUT Endpoint to Update Todo in Database, and Apply Styling to Todo on UI
-    const updateTodo = (todo) => {
-      todo = {
-         completed: true
-      }
-
-      axios.put(`https://api.vschool.io/zacharybaca/todo/${todo._id}`, todo)
-    }
+         }}) 
 
     // Global Function That Will Get Todos From API
     async function getTodos() {
