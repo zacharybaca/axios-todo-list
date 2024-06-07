@@ -168,7 +168,7 @@ function addToDo(todo) {
 }
 
 // GET Endpoint to Display All Todos
-axios.get("https://api.vschool.io/zacharybaca/todo")
+const getTodos = () => {axios.get("https://api.vschool.io/zacharybaca/todo")
     .then(response => {
         let data = response.data;
         
@@ -196,7 +196,7 @@ axios.get("https://api.vschool.io/zacharybaca/todo")
                   updatedTodo.completed = false;
                }
                   
-               axios.put(`https://api.vschool.io/zacharybaca/todo/${data[i]._id}`, updatedTodo).then(response => console.log(response.data)).catch(error => console.log(error))
+               axios.put(`https://api.vschool.io/zacharybaca/todo/${data[i]._id}`, updatedTodo).then(response => updateTodos()).catch(error => console.log(error))
 
             })
          }
@@ -211,14 +211,25 @@ axios.get("https://api.vschool.io/zacharybaca/todo")
             deleteButtons[i].addEventListener('click', (e) => {
                console.log('Delete Button Clicked: ', e.target.parentElement.parentElement)
                // Delete Todo With Associated Delete Button
-               axios.delete(`https://api.vschool.io/zacharybaca/todo/${data[i]._id}`).then(response => console.log(response.data)).catch(error => console.log(error));
+               axios.delete(`https://api.vschool.io/zacharybaca/todo/${data[i]._id}`).then(response => updateTodos()).catch(error => console.log(error));
             })
          }
       }
-   ) 
-    
-    
-    
+   ) }
+
+   getTodos();
+   // Function to Refresh Todos Automatically
+   function updateTodos() {
+      // Remove All of The Todos That Are Currently on The Page
+      let todoList = document.getElementById('todo-list')
+      console.log('Ran Function: ', todoList.hasChildNodes())
+      while (todoList.hasChildNodes()) {
+         todoList.removeChild(todoList.firstChild)
+      }
+      // Call addToDo to Add Items Back To Page
+      getTodos();
+   }
+
 // Add Event Listener on Form to Post ToDo
 document.todoForm.addEventListener("submit", (e) => {
    e.preventDefault();
@@ -233,7 +244,7 @@ document.todoForm.addEventListener("submit", (e) => {
 
    // POST Endpoint to Add Todo
    axios.post("https://api.vschool.io/zacharybaca/todo", todo)
-      .then(response => console.log(response.data))
+      .then(response => updateTodos())
       .catch(error => console.log(error))
 
       // Clear Form Data After Submission
@@ -242,13 +253,6 @@ document.todoForm.addEventListener("submit", (e) => {
       document.todoForm.description.value = '';
       document.todoForm.imageUrl.value = '';
 
-      // // Delete and Re-Add the Todo Elements for Updated List
-      //    // Loop Through todoList
-      //    // Delete Each Element Inside List
-      //    let child = todoList.lastElementChild;
-
-      //    while (child) {
-      //       todoList.removeChild(child);
-      //       child = todoList.lastElementChild;
-      //    }
+      
    })
+
