@@ -172,6 +172,9 @@ const getTodos = () => {axios.get("https://api.vschool.io/zacharybaca/todo")
     .then(response => {
         let data = response.data;
         
+        // Variable to Make Todo Data Global
+        todos = data;
+        
         let checkBoxes = document.getElementsByClassName('completed-checkbox');
          
         for (let i = 0; i < data.length; i++) {
@@ -214,6 +217,44 @@ const getTodos = () => {axios.get("https://api.vschool.io/zacharybaca/todo")
                axios.delete(`https://api.vschool.io/zacharybaca/todo/${data[i]._id}`).then(response => updateTodos()).catch(error => console.log(error));
             })
          }
+
+         // EDIT Endpoint to Edit a Todo
+         // Grab All the Edit Buttons
+         let editButtons = document.getElementsByClassName('item-edit-button');
+
+         // Loop Over Edit Buttons
+         for (let i = 0; i < editButtons.length; i++) {
+            // Add Event Listener on Each Edit Button
+            editButtons[i].addEventListener('click', (e) => {
+               // Check If Todo Has Existing Value for Each Field
+               // Populate Existing Data
+               let todos = e.target.parentElement.parentElement.childNodes;
+
+               // Loop Through Selected Todo's Child Elements
+               // Check If Each Element Contains a Specific Class
+               for (let i = 0; i < todos.length; i++) {
+                  if (todos[i].classList.contains("item-title")){
+                     document.todoForm.title.value = todos[i].textContent;
+                  }
+
+                  if (todos[i].classList.contains("item-price")) {
+                     document.todoForm.price.value = todos[i].textContent;
+                  }
+
+                  if (todos[i].classList.contains("item-detail")) {
+                     document.todoForm.description.value = todos[i].textContent;
+                  }
+
+                  if (todos[i].classList.contains("item-image")) {
+                     document.todoForm.imageUrl.value = todos[i].src;
+                  }
+               }
+               
+               // Delete Existing Todo From Database
+               // Add Updated Todo To Database
+               axios.delete(`https://api.vschool.io/zacharybaca/todo/${data[i]._id}`).then(response => updateTodos()).catch(error => console.log(error));
+            })
+         }
       }
    ) }
 
@@ -222,7 +263,7 @@ const getTodos = () => {axios.get("https://api.vschool.io/zacharybaca/todo")
    function updateTodos() {
       // Remove All of The Todos That Are Currently on The Page
       let todoList = document.getElementById('todo-list')
-      console.log('Ran Function: ', todoList.hasChildNodes())
+      
       while (todoList.hasChildNodes()) {
          todoList.removeChild(todoList.firstChild)
       }
@@ -233,7 +274,7 @@ const getTodos = () => {axios.get("https://api.vschool.io/zacharybaca/todo")
 // Add Event Listener on Form to Post ToDo
 document.todoForm.addEventListener("submit", (e) => {
    e.preventDefault();
-
+ 
    const todo = {
       title: document.todoForm.title.value,
       price: document.todoForm.price.value,
@@ -241,7 +282,7 @@ document.todoForm.addEventListener("submit", (e) => {
       imgUrl: document.todoForm.imageUrl.value,
       completed: document.todoForm.completed
    }
-
+   
    // POST Endpoint to Add Todo
    axios.post("https://api.vschool.io/zacharybaca/todo", todo)
       .then(response => updateTodos())
