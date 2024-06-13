@@ -36,6 +36,26 @@ function addToDo(todo) {
      // Append <hr /> Element to listItem
      listItem.appendChild(underLineElement);
 
+     // Create an <h4 /> Element to Show ID of Todo
+     let todoIdentifier = document.createElement('h4');
+
+     // Assign todoIdentifier's Text to Equal Todo ID
+     todoIdentifier.textContent = `ID: ${todo._id}`;
+
+     // Add Class to todoIdentifier Element
+     todoIdentifier.classList.add('todo-identifier');
+
+     // Check If Todo Is Completed
+     if (todo.completed) {
+      todoIdentifier.style.textDecoration = 'line-through';
+     }
+     else {
+      todoIdentifier.style.textDecoration = 'none';
+     }
+
+     // Append todoIdentifier to List Item
+     listItem.appendChild(todoIdentifier);
+
      // If Description Exists, Create Element
      if (todo.description) {
       
@@ -212,7 +232,6 @@ const getTodos = () => {axios.get("https://api.vschool.io/zacharybaca/todo")
          for (let i = 0; i < deleteButtons.length; i++) {
             // Add Event Listener on Each Delete Button
             deleteButtons[i].addEventListener('click', (e) => {
-               console.log('Delete Button Clicked: ', e.target.parentElement.parentElement)
                // Delete Todo With Associated Delete Button
                axios.delete(`https://api.vschool.io/zacharybaca/todo/${data[i]._id}`).then(response => updateTodos()).catch(error => console.log(error));
             })
@@ -238,7 +257,7 @@ const getTodos = () => {axios.get("https://api.vschool.io/zacharybaca/todo")
                   }
 
                   if (todos[i].classList.contains("item-price")) {
-                     document.todoForm.price.value = todos[i].textContent;
+                     document.todoForm.price.value = todos[i].textContent.slice(1);
                   }
 
                   if (todos[i].classList.contains("item-detail")) {

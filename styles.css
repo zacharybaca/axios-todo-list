@@ -205,6 +205,11 @@ body {
     .completed-checkbox {
         margin-top: 4%;
     }
+
+    .todo-identifier {
+        text-align: center;
+        font-size: 11px;
+    }
     
     /* Footer */
     
