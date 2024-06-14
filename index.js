@@ -245,6 +245,15 @@ const getTodos = () => {axios.get("https://api.vschool.io/zacharybaca/todo")
          for (let i = 0; i < editButtons.length; i++) {
             // Add Event Listener on Each Edit Button
             editButtons[i].addEventListener('click', (e) => {
+               // Grab Form Element
+               let todoForm = document.getElementById('todo-form');
+
+               // Set Z-Index of Todo Form to Show in Front of Overlay
+               todoForm.style.zIndex = '1';
+               
+               // Set Overlay ID Display To Block
+               document.getElementById('overlay').style.display = 'block';
+
                // Check If Todo Has Existing Value for Each Field
                // Populate Existing Data
                let todos = e.target.parentElement.parentElement.childNodes;
@@ -313,6 +322,7 @@ document.todoForm.addEventListener("submit", (e) => {
       document.todoForm.description.value = '';
       document.todoForm.imageUrl.value = '';
 
-      
+      // Remove Overlay When Form Is Submitted
+      document.getElementById('overlay').style.display = 'none';
    })
 
