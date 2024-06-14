@@ -247,10 +247,13 @@ const getTodos = () => {axios.get("https://api.vschool.io/zacharybaca/todo")
             editButtons[i].addEventListener('click', (e) => {
                // Grab Form Element
                let todoForm = document.getElementById('todo-form');
+               
+               // Change Text of formButton to "Save"
+               document.getElementById('form-button').textContent = "Save";
 
                // Set Z-Index of Todo Form to Show in Front of Overlay
                todoForm.style.zIndex = '1';
-               
+
                // Set Overlay ID Display To Block
                document.getElementById('overlay').style.display = 'block';
 
@@ -324,5 +327,9 @@ document.todoForm.addEventListener("submit", (e) => {
 
       // Remove Overlay When Form Is Submitted
       document.getElementById('overlay').style.display = 'none';
+
+      if (document.getElementById('form-button').textContent === "Save") {
+         document.getElementById('form-button').textContent = "Submit";
+      }
    })
 
